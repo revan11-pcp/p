@@ -5,25 +5,25 @@ const features = [
     icon: <FaTruck className="text-blue-600 text-4xl mb-3" />,
     title: "Transportation Management System (TMS)",
     description:
-      "Sistem digital terpadu untuk mengelola armada, rute, dan pengiriman secara efisien, membantu meningkatkan kecepatan dan akurasi distribusi.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
   {
     icon: <FaRoute className="text-blue-600 text-4xl mb-3" />,
     title: "Real-Time Tracking",
     description:
-      "Pantau posisi dan status pengiriman secara langsung untuk memastikan transparansi dan kepercayaan pelanggan.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..",
   },
   {
     icon: <FaWarehouse className="text-blue-600 text-4xl mb-3" />,
     title: "Warehouse Integration",
     description:
-      "Terhubung langsung dengan sistem pergudangan untuk memudahkan manajemen stok dan distribusi barang.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
   {
     icon: <FaChartLine className="text-blue-600 text-4xl mb-3" />,
     title: "Analytics & Reporting",
     description:
-      "Dapatkan laporan operasional yang detail untuk membantu pengambilan keputusan berbasis data.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..",
   },
 ];
 
