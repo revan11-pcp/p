@@ -1,5 +1,7 @@
+import { useState } from "react"
 
 const Tracing = () => {
+    // const [clear,setClear] = useState('');
   return (
     <div className="mt-4">
         <form className="max-w-md mx-auto">
