@@ -1,23 +1,34 @@
-import { Carousel } from 'flowbite-react';
-import csImg from '../../../assets/cs.png';
-import { HiArrowLeft, HiArrowRight } from 'react-icons/hi';
+import { Carousel } from "flowbite-react";
+import csImg from "../../../assets/cs.png";
+import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 
-function CarouselSection() {
+const CarouselSection = () => {
   const images = [csImg, csImg, csImg, csImg, csImg];
+
   return (
-    <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
-      <Carousel 
-        slideInterval={3000} 
-        pauseOnHover
-        leftControl={<HiArrowLeft className="h-6 w-6 text-white" />}
-        rightControl={<HiArrowRight className="h-6 w-6 text-white" />}
+    <div className="h-screen w-full">
+      <Carousel
+        slide={true}
+        slideInterval={3000}
+        pauseOnHover={true}
+        leftControl={<HiArrowLeft className="h-8 w-8 text-white" />}
+        rightControl={<HiArrowRight className="h-8 w-8 text-white" />}
+        indicators={true}
+        className="w-full h-full"
       >
         {images.map((src, index) => (
-          <img key={index} src={src} alt={`Slide ${index + 1}`} />
+          <div key={index} className="relative w-full h-full">
+            <img
+              src={src}
+              alt={`Slide ${index + 1}`}
+              className="object-cover w-full h-full"
+            />
+            <div className="absolute inset-0 bg-black/40"></div>
+          </div>
         ))}
       </Carousel>
     </div>
   );
-}
+};
 
 export default CarouselSection;

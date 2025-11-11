@@ -25,7 +25,7 @@ const Blog = () => {
   return (
     <section className="bg-gray-50 dark:bg-gray-900 py-16 px-6">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-4 text-gray-800 dark:text-white">
+        <h2 className="text-4xl  mb-4 text-gray-800 dark:text-white">
           From Our Blog
         </h2>
         <p className="text-gray-500 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
