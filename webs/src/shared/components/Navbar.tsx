@@ -5,11 +5,25 @@ import LanguageSwitcher from './LanguageSwitcher';
 
 const Navbar = () => {
   const [language, setLanguage] = useState<'English' | 'Indonesian'>('English');
-  const [isTrackAndEstimateOpen, setIsTrackAndEstimateOpen] = useState(false);
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const location = useLocation();
+  const [openDropdown, setOpenDropdown] = useState('');
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
   const timeoutRef = useRef<number | null>(null);
+  const dropdownTimeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (openDropdown && !(event.target as Element).closest('.relative')) {
+        setOpenDropdown('');
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openDropdown]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -85,6 +99,18 @@ const Navbar = () => {
       className={`bg-white shadow-md fixed left-0 w-full z-50 transition-all duration-300 ease-in-out ${
         isVisible ? 'top-0' : '-top-full'
       }`}
+      onMouseEnter={() => {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+      }}
+      onMouseLeave={() => {
+        timeoutRef.current = window.setTimeout(() => {
+          if (window.scrollY > 0) {
+            setIsVisible(false);
+          }
+        }, 5000);
+      }}
     >
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -131,18 +157,30 @@ const Navbar = () => {
               </NavLink>
             </li>
 
-            <li className="relative">
+            <li
+              className="relative"
+              onMouseEnter={() => {
+                if (dropdownTimeoutRef.current) {
+                  clearTimeout(dropdownTimeoutRef.current);
+                }
+                setOpenDropdown('track');
+              }}
+              onMouseLeave={() => {
+                dropdownTimeoutRef.current = window.setTimeout(() => {
+                  setOpenDropdown('');
+                }, 200);
+              }}
+            >
               {(() => {
-                const location = useLocation();
-                const isTrackAndEstimateActive =
+                const isDropdownActive =
                   location.pathname === '/trace-and-track' ||
                   location.pathname === '/pricing' ||
                   location.pathname === '/coverage';
                 return (
                   <button
-                    onClick={() => setIsTrackAndEstimateOpen(!isTrackAndEstimateOpen)}
+                    onClick={() => setOpenDropdown(openDropdown === 'track' ? '' : 'track')}
                     className={`flex items-center py-2 px-3 md:p-0 ${
-                      isTrackAndEstimateActive
+                      isDropdownActive
                         ? 'text-blue-700 dark:text-blue-500'
                         : 'text-gray-900 hover:text-blue-700 dark:text-white'
                     }`}
@@ -150,7 +188,7 @@ const Navbar = () => {
                     {translations[language].TrackAndEstimate}
                     <svg
                       className={`w-4 h-4 ml-1 mt-0.5 transform transition-transform ${
-                        isTrackAndEstimateOpen ? 'rotate-180' : ''
+                        openDropdown === 'track' ? 'rotate-180' : ''
                       }`}
                       fill="none"
                       stroke="currentColor"
@@ -163,7 +201,7 @@ const Navbar = () => {
                 );
               })()}
 
-              {isTrackAndEstimateOpen && (
+              {openDropdown === 'track' && (
                 <ul className="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg z-[9999]">
                   <li>
                     <NavLink
@@ -224,17 +262,28 @@ const Navbar = () => {
                 {translations[language].contact}
               </NavLink>
             </li>
-            <li className="relative">
+            <li
+              className="relative"
+              onMouseEnter={() => {
+                if (dropdownTimeoutRef.current) {
+                  clearTimeout(dropdownTimeoutRef.current);
+                }
+                setOpenDropdown('about');
+              }}
+              onMouseLeave={() => {
+                dropdownTimeoutRef.current = window.setTimeout(() => {
+                  setOpenDropdown('');
+                }, 200);
+              }}
+            >
               {(() => {
-                const location = useLocation();
-                const isAboutUsActive =
-                  location.pathname === '/company-profile' ||
-                  location.pathname === '/career';
+                const isDropdownActive =
+                  location.pathname === '/company-profile' || location.pathname === '/career';
                 return (
                   <button
-                    onClick={() => setIsAboutOpen(!isAboutOpen)}
+                    onClick={() => setOpenDropdown(openDropdown === 'about' ? '' : 'about')}
                     className={`flex items-center py-2 px-3 md:p-0 ${
-                      isAboutUsActive
+                      isDropdownActive
                         ? 'text-blue-700 dark:text-blue-500'
                         : 'text-gray-900 hover:text-blue-700 dark:text-white'
                     }`}
@@ -242,7 +291,7 @@ const Navbar = () => {
                     {translations[language].about}
                     <svg
                       className={`w-4 h-4 ml-1 mt-0.5 transform transition-transform ${
-                        isAboutOpen ? 'rotate-180' : ''
+                        openDropdown === 'about' ? 'rotate-180' : ''
                       }`}
                       fill="none"
                       stroke="currentColor"
@@ -255,7 +304,7 @@ const Navbar = () => {
                 );
               })()}
 
-              {isAboutOpen && (
+              {openDropdown === 'about' && (
                 <ul className="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg z-[9999]">
                   <li>
                     <NavLink
