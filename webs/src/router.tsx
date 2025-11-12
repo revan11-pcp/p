@@ -6,6 +6,7 @@ import TraceAndTrack from "./features/Trace&Track";
 import RateCalculator from './features/RateCalculator'
 import DeliveryCoverage from './features/DeliveryCoverage'
 import Profile from './features/Profile'
+import Career from './features/Career'
 import App from "./App";
 
 export const router = createBrowserRouter([
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "/company-profile",
         element: <Profile />,
+      },
+      {
+        path: "/career",
+        element: <Career />,
       },
     ],
   },
