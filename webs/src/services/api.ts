@@ -18,7 +18,7 @@ export const getTrackingData = async (awbNo: string): Promise<TrackingItem> => {
       } else if (errorBody && typeof errorBody === 'string') {
         errorMessage = errorBody;
       }
-    } catch (e) {
+    } catch (_e) {
       errorMessage = 'Under Development   ';
     }
     throw new Error(errorMessage);

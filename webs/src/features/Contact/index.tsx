@@ -4,7 +4,7 @@ import ContactForm from './components/ContactForm'
 const index = () => {
   return (
     <div>
-        <HeroSection image={img} title='Contact' height='h-[50-vh]'/>
+        <HeroSection image={img} title='Contact' height='h-[50vh]'/>
         <ContactForm/>
     </div>
   )

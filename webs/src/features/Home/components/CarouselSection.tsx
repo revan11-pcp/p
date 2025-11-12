@@ -1,28 +1,34 @@
 import { Carousel } from "flowbite-react";
-import csImg from "../../../assets/cs.png";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
+import csImg from "../../../assets/cs.png";
 
 const CarouselSection = () => {
   const images = [csImg, csImg, csImg, csImg, csImg];
 
   return (
-    <div className="h-screen w-full">
+    <div className="relative w-full h-[500px] md:h-screen">
       <Carousel
         slide={true}
         slideInterval={3000}
         pauseOnHover={true}
-        leftControl={<HiArrowLeft className="h-8 w-8 text-white" />}
-        rightControl={<HiArrowRight className="h-8 w-8 text-white" />}
         indicators={true}
-        className="w-full h-full"
+        leftControl={
+          <HiArrowLeft className="h-8 w-8 text-white bg-black/30 rounded-full p-1 hover:bg-black/50 transition" />
+        }
+        rightControl={
+          <HiArrowRight className="h-8 w-8 text-white bg-black/30 rounded-full p-1 hover:bg-black/50 transition" />
+        }
+        className="w-full h-full rounded-lg overflow-hidden"
       >
         {images.map((src, index) => (
           <div key={index} className="relative w-full h-full">
             <img
               src={src}
               alt={`Slide ${index + 1}`}
-              className="object-cover w-full h-full"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              draggable="false"
             />
+
             <div className="absolute inset-0 bg-black/40"></div>
           </div>
         ))}
