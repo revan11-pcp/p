@@ -3,6 +3,7 @@ import Home from "./features/Home";
 import Services from "./features/Services";
 import Contact from "./features/Contact";
 import TraceAndTrack from "./features/Trace&Track";
+import RateCalculator from './features/RateCalculator'
 import App from "./App";
 
 export const router = createBrowserRouter([
@@ -26,6 +27,15 @@ export const router = createBrowserRouter([
         path: "/trace-and-track",
         element: <TraceAndTrack />,
       },
+      {
+        path: "/pricing",
+        element: <RateCalculator />,
+      },
+      // {
+      //   path: "/coverage",
+      //   element: <RateCalculator />,
+      // },
     ],
   },
 ]);
+
