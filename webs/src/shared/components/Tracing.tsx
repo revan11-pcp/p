@@ -1,27 +1,29 @@
 import { useState } from 'react';
 import { getTrackingData } from '../../services/api';
-import type { TrackingItem } from '../../types'; 
+import type { TrackingItem } from '../../types';
+import toast from 'react-hot-toast';
 
 const Tracing = () => {
   const [trackingId, setTrackingId] = useState('');
   const [data, setData] = useState<TrackingItem | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!trackingId.trim()) {
-      setError('Please enter a tracking number.');
+      toast.error('Please enter a tracking number.');
       return;
     }
     setLoading(true);
-    setError(null);
     setData(null);
     try {
       const result = await getTrackingData(trackingId);
       setData(result);
+      if (!result || !result.header) {
+        toast.error('Tracking number not found.');
+      }
     } catch (err: any) {
-      setError(err.message || 'An unknown error occurred. The tracking number may not be valid or the API is down.');
+      toast.error(err.message || 'An unknown error occurred. The tracking number may not be valid or the API is down.');
     } finally {
       setLoading(false);
     }
@@ -67,7 +69,6 @@ const Tracing = () => {
 
       <div className="max-w-4xl mx-auto mt-8 px-4">
         {loading && <p className="text-center text-gray-500">Loading tracking data...</p>}
-        {error && <p className="text-center text-red-500 bg-red-100 p-3 rounded-lg">{error}</p>}
         {data && data.header && (
           <div className="p-4 border rounded-lg shadow-sm bg-white dark:bg-gray-800 dark:border-gray-700">
             <h3 className="text-lg font-bold text-gray-900 dark:text-white">Tracking Number: {data.header.TrackingNo}</h3>
@@ -81,18 +82,25 @@ const Tracing = () => {
             <div className="mt-6">
               <h4 className="font-semibold text-gray-800 dark:text-gray-200">Tracking History:</h4>
               {data.detail && data.detail.length > 0 ? (
-                <ul className="mt-2 space-y-3">
-                  {data.detail.map((event, index) => (
-                    <li key={index} className="p-3 border-b border-gray-200 dark:border-gray-600 last:border-b-0">
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{new Date(event.TrackingDate).toLocaleString()}</p>
-                      <p className="text-gray-800 dark:text-gray-200">
-                        <strong>{event.StatusName}</strong> at {event.Location} ({event.OfficeName})
-                      </p>
-                      {event.ReceiverName && <p className="text-sm text-gray-600 dark:text-gray-400">Received by: {event.ReceiverName} ({event.ReceiverStatus})</p>}
-                      {event.CourierName && <p className="text-sm text-gray-600 dark:text-gray-400">Courier: {event.CourierName}</p>}
-                    </li>
-                  ))}
-                </ul>
+                <div className="relative mt-4">
+                  <div className="absolute left-4 top-0 h-full w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+                  <ul className="space-y-8">
+                    {data.detail.map((event, index) => (
+                      <li key={index} className="relative pl-10">
+                        <div className="absolute left-4 top-1 w-3 h-3 bg-blue-500 rounded-full -translate-x-1/2"></div>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{new Date(event.TrackingDate).toLocaleString()}</p>
+                        <p className="text-gray-800 dark:text-gray-200">
+                          <strong>{event.StatusName}</strong>
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {event.Location} ({event.OfficeName})
+                        </p>
+                        {event.ReceiverName && <p className="text-sm text-gray-600 dark:text-gray-400">Received by: {event.ReceiverName} ({event.ReceiverStatus})</p>}
+                        {event.CourierName && <p className="text-sm text-gray-600 dark:text-gray-400">Courier: {event.CourierName}</p>}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ) : (
                 <p className="text-gray-500 dark:text-gray-400 mt-2">No detailed tracking history available.</p>
               )}

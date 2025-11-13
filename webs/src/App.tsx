@@ -4,6 +4,7 @@ import Navbar from './shared/components/Navbar'
 import Footer from './shared/components/Footer'
 import { initFlowbite } from 'flowbite'
 import { Outlet } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
             <Navbar/>
             <Outlet/>
             <Footer/>
+            <Toaster position="bottom-center" reverseOrder={false} />
         </>
     )
 }
