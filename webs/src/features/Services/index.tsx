@@ -1,5 +1,5 @@
 import ServicesSection from './components/ServicesSection'
-import img from '../../assets/cs.png'
+import img from '../../assets/services.jpg'
 import HeroSection from '../../shared/components/HeroSection'
 
 const index = () => {

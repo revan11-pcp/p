@@ -1,13 +1,11 @@
 import Blog from "./components/Blog";
-import CarouselSection from "./components/CarouselSection";
 import Feature from "./components/Feature";
-import QuickLinks from "./components/QuickLinks";
+import HomeHeroSection from "./components/HomeHeroSection";
 
 const Home = () => {
     return (
         <div>
-            <CarouselSection />
-            <QuickLinks />
+            <HomeHeroSection />
             <Feature/>
             <Blog/>
         </div>

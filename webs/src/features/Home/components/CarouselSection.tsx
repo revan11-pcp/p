@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
-import csImg from "../../../assets/cs.png";
+import truck from "../../../assets/truck.jpg";
+import pelabuhan from "../../../assets/pelabuhan.jpeg";
+import kontener from "../../../assets/kontener.jpeg"
 
 const CarouselSection = () => {
-  const images = [csImg, csImg, csImg, csImg, csImg];
+  const images = [truck,pelabuhan,kontener];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const CarouselSection = () => {
   };
 
   return (
-    <div className="relative w-full h-[500px] md:h-screen overflow-hidden rounded-lg">
+    <div className="relative w-full h-full overflow-hidden">
       {images.map((src, index) => (
         <div
           key={index}

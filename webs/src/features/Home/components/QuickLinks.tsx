@@ -5,25 +5,25 @@ const QuickLinks = () => {
   const links = [
     {
       to: "/trace-and-track",
-      icon: <FaSearchLocation className="h-12 w-12 mx-auto text-blue-600" />,
+      icon: <FaSearchLocation className="h-12 w-12 mx-auto text-white" />,
       text: "Trace & Track",
     },
     {
       to: "/pricing",
-      icon: <FaCalculator className="h-12 w-12 mx-auto text-blue-600" />,
+      icon: <FaCalculator className="h-12 w-12 mx-auto text-white" />,
       text: "Rate Calculator",
     },
     {
       to: "/coverage",
-      icon: <FaMapMarkedAlt className="h-12 w-12 mx-auto text-blue-600" />,
+      icon: <FaMapMarkedAlt className="h-12 w-12 mx-auto text-white" />,
       text: "Delivery Coverage",
     },
   ];
 
   return (
-    <div className="py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+    <div className="py-4">
+      <div className="">
+        <div className="flex flex-col md:flex-row justify-center items-center ">
           {links.map((link, index) => (
             <Link
               key={index}
@@ -31,7 +31,7 @@ const QuickLinks = () => {
               className="text-center px-4 py-2"
             >
               {link.icon}
-              <h3 className="text-xl font-semibold text-gray-800">{link.text}</h3>
+              <h3 className="text-xl font-semibold text-white">{link.text}</h3>
             </Link>
           ))}
         </div>
