@@ -7,17 +7,17 @@ const QuickLinks = () => {
   const links = [
     {
       to: "trace-and-track",
-      icon: <FaSearchLocation className="h-12 w-12 mx-auto text-white" />,
+      icon: <FaSearchLocation className="h-12 w-12 mx-auto" />,
       text: t("tracking"),
     },
     {
       to: "pricing",
-      icon: <FaCalculator className="h-12 w-12 mx-auto text-white" />,
+      icon: <FaCalculator className="h-12 w-12 mx-auto" />,
       text: t("pricing"),
     },
     {
       to: "coverage",
-      icon: <FaMapMarkedAlt className="h-12 w-12 mx-auto text-white" />,
+      icon: <FaMapMarkedAlt className="h-12 w-12 mx-auto" />,
       text: t("coverage"),
     },
   ];
@@ -30,10 +30,10 @@ const QuickLinks = () => {
             <Link
               key={index}
               to={link.to}
-              className="text-center px-4 py-2"
+              className="text-center px-4 py-2 group transition-all duration-300 hover:text-blue-400 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-white"
             >
               {link.icon}
-              <h3 className="text-xl font-semibold text-white">{link.text}</h3>
+              <h3>{link.text}</h3>
             </Link>
           ))}
         </div>

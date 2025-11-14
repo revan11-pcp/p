@@ -1,5 +1,5 @@
 import HeroSection from '../../shared/components/HeroSection'
-import img from '../../assets/cs.png'
+import img from '../../assets/services.jpg'
 import ContactForm from './components/ContactForm'
 const index = () => {
   return (

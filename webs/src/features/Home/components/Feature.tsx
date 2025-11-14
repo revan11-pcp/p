@@ -1,50 +1,50 @@
-import { FaTruck, FaRoute, FaChartLine, FaWarehouse } from "react-icons/fa";
+import { FaCalendarAlt, FaTruck, FaClock, FaHeadset } from "react-icons/fa";
+
 
 const features = [
   {
-    icon: <FaTruck className="text-blue-600 text-4xl mb-3" />,
-    title: "Transportation Management System (TMS)",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    icon: <FaCalendarAlt className="text-gray-900 dark:text-white text-4xl mb-3" />,
+    title: "365 DAYS",
+    description: "Operational 24/7",
   },
   {
-    icon: <FaRoute className="text-blue-600 text-4xl mb-3" />,
+    icon: <FaTruck className="text-gray-900 dark:text-white text-4xl mb-3" />,
+    title: "Dedicated Fleet",
+    description: "Berbagai jenis armada untuk kebutuhan Anda",
+  },
+  {
+    icon: <FaClock className="text-gray-900 dark:text-white text-4xl mb-3" />,
     title: "Real-Time Tracking",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..",
+    description: "Lacak kiriman Anda kapan saja",
   },
   {
-    icon: <FaWarehouse className="text-blue-600 text-4xl mb-3" />,
-    title: "Warehouse Integration",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    icon: <FaChartLine className="text-blue-600 text-4xl mb-3" />,
-    title: "Analytics & Reporting",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..",
+    icon: <FaHeadset className="text-gray-900 dark:text-white text-4xl mb-3" />,
+    title: "24-Hour Support",
+    description: "Layanan pelanggan siap membantu",
   },
 ];
 
 const Feature = () => {
   return (
-    <section className="bg-gray-50 py-16">
+    <section className="bg-gray-200 dark:bg-gray-800 py-16"> 
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl text-gray-800 mb-8">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12"> 
           PCP Transport’s Key Features
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {features.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-6 flex flex-col items-center text-center"
+              className="p-6 flex flex-col items-center text-center" 
             >
               {item.icon}
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                 {item.title}
               </h3>
-              <p className="text-gray-600 text-sm">{item.description}</p>
+              
+              <p className="text-gray-900 dark:text-white text-sm">{item.description}</p>
             </div>
           ))}
         </div>

@@ -1,6 +1,7 @@
 import HeroSection from '../../shared/components/HeroSection'
 import Tracing from '../../shared/components/Tracing'
 import { useSearchParams } from 'react-router-dom';
+import img from '../../assets/truck.jpg'
 
 const Index = () => {
   const [searchParams] = useSearchParams();
@@ -8,7 +9,7 @@ const Index = () => {
 
   return (
     <div>
-        <HeroSection image='' title='Trace & Track' height='h-[50vh]'/>
+        <HeroSection image={img} title='Trace & Track' height='h-[50vh]'/>
         <Tracing initialTrackingId={trackingId} />
     </div>
   )

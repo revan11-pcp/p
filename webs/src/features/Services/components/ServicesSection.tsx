@@ -16,12 +16,6 @@ const ServicesSection = () => {
       img,
       link: '#',
     },
-    {
-      title: 'How PCP Transport Transforms Logistics',
-      desc: 'Discover how innovative tracking and delivery systems help customers send goods faster and more securely.',
-      img,
-      link: '#',
-    },
   ]
   return (
     <section className="bg-gray-50 dark:bg-gray-900 py-16 px-6">
