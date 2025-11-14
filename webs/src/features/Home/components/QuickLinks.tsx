@@ -1,22 +1,24 @@
 import { Link } from "react-router-dom";
 import { FaSearchLocation, FaCalculator, FaMapMarkedAlt } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const QuickLinks = () => {
+  const { t } = useTranslation();
   const links = [
     {
-      to: "/trace-and-track",
+      to: "trace-and-track",
       icon: <FaSearchLocation className="h-12 w-12 mx-auto text-white" />,
-      text: "Trace & Track",
+      text: t("tracking"),
     },
     {
-      to: "/pricing",
+      to: "pricing",
       icon: <FaCalculator className="h-12 w-12 mx-auto text-white" />,
-      text: "Rate Calculator",
+      text: t("pricing"),
     },
     {
-      to: "/coverage",
+      to: "coverage",
       icon: <FaMapMarkedAlt className="h-12 w-12 mx-auto text-white" />,
-      text: "Delivery Coverage",
+      text: t("coverage"),
     },
   ];
 

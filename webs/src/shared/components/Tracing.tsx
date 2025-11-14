@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getTrackingData } from '../../services/api';
-import type { TrackingItem } from '../../types';
+import type { TrackingItem } from '../types';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 

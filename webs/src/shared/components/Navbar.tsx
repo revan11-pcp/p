@@ -2,9 +2,10 @@ import logo from '../../assets/logo.png';
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import LanguageSwitcher from './LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
-  const [language, setLanguage] = useState<'English' | 'Indonesian'>('English');
+  const { t, i18n } = useTranslation();
   const location = useLocation();
   const [openDropdown, setOpenDropdown] = useState('');
   const [isVisible, setIsVisible] = useState(true);
@@ -63,37 +64,6 @@ const Navbar = () => {
     };
   }, []);
 
-  const translations = {
-    English: {
-      home: 'HOME',
-      services: 'SERVICES',
-      TrackAndEstimate: 'TRACK & ESTIMATE',
-      tracking: 'Track & Trace',
-      pricing: 'Rate Calculator',
-      coverage: 'Delivery Coverage',
-      about: 'ABOUT US',
-      companyProfile: 'Company Profile',
-      career: 'Career',
-      contact: 'CONTACT US',
-    },
-    Indonesian: {
-      home: 'BERANDA',
-      services: 'LAYANAN',
-      TrackAndEstimate: 'CEK & HITUNG',
-      tracking: 'Lacak Kiriman',
-      pricing: 'Hitung Tarif',
-      coverage: 'Wilayah Pengiriman',
-      about: 'TENTANG KAMI',
-      companyProfile: 'Profil Perusahaan',
-      career: 'Karier',
-      contact: 'KONTAK KAMI',
-    },
-  };
-
-
-
-
-
   return (
     <nav
       className={`bg-white shadow-md fixed left-0 w-full z-50 transition-all duration-300 ease-in-out ${
@@ -113,12 +83,12 @@ const Navbar = () => {
       }}
     >
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <Link to={`/${i18n.language}`} className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src={logo} className="h-8" alt="Logo" />
         </Link>
 
         <div className="flex items-center md:order-2 space-x-2">
-          <LanguageSwitcher currentLanguage={language} onLanguageChange={setLanguage} />
+          <LanguageSwitcher />
         </div>
 
         <div
@@ -129,7 +99,8 @@ const Navbar = () => {
             
             <li>
               <NavLink
-                to="/"
+                to={`/${i18n.language}`}
+                end
                 className={({ isActive }) =>
                   `block py-2 px-3 md:p-0 ${
                     isActive
@@ -138,13 +109,13 @@ const Navbar = () => {
                   }`
                 }
               >
-                {translations[language].home}
+                {t('home')}
               </NavLink>
             </li>
 
             <li>
               <NavLink
-                to="/services"
+                to="services"
                 className={({ isActive }) =>
                   `block py-2 px-3 md:p-0 ${
                     isActive
@@ -153,7 +124,7 @@ const Navbar = () => {
                   }`
                 }
               >
-                {translations[language].services}
+                {t('services')}
               </NavLink>
             </li>
 
@@ -173,9 +144,9 @@ const Navbar = () => {
             >
               {(() => {
                 const isDropdownActive =
-                  location.pathname === '/trace-and-track' ||
-                  location.pathname === '/pricing' ||
-                  location.pathname === '/coverage';
+                  location.pathname.endsWith('/trace-and-track') ||
+                  location.pathname.endsWith('/pricing') ||
+                  location.pathname.endsWith('/coverage');
                 return (
                   <button
                     onClick={() => setOpenDropdown(openDropdown === 'track' ? '' : 'track')}
@@ -185,7 +156,7 @@ const Navbar = () => {
                         : 'text-gray-900 hover:text-blue-700 dark:text-white'
                     }`}
                   >
-                    {translations[language].TrackAndEstimate}
+                    {t('TrackAndEstimate')}
                     <svg
                       className={`w-4 h-4 ml-1 mt-0.5 transform transition-transform ${
                         openDropdown === 'track' ? 'rotate-180' : ''
@@ -205,7 +176,7 @@ const Navbar = () => {
                 <ul className="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg z-[9999]">
                   <li>
                     <NavLink
-                      to="/trace-and-track"
+                      to="trace-and-track"
                       className={({ isActive }) =>
                         `block px-4 py-2 text-sm ${
                           isActive
@@ -214,12 +185,12 @@ const Navbar = () => {
                         }`
                       }
                     >
-                      {translations[language].tracking}
+                      {t('tracking')}
                     </NavLink>
                   </li>
                   <li>
                     <NavLink
-                      to="/pricing"
+                      to="pricing"
                       className={({ isActive }) =>
                         `block px-4 py-2 text-sm ${
                           isActive
@@ -228,12 +199,12 @@ const Navbar = () => {
                         }`
                       }
                     >
-                      {translations[language].pricing}
+                      {t('pricing')}
                     </NavLink>
                   </li>
                   <li>
                     <NavLink
-                      to="/coverage"
+                      to="coverage"
                       className={({ isActive }) =>
                         `block px-4 py-2 text-sm ${
                           isActive
@@ -242,7 +213,7 @@ const Navbar = () => {
                         }`
                       }
                     >
-                      {translations[language].coverage}
+                      {t('coverage')}
                     </NavLink>
                   </li>
                 </ul>
@@ -250,7 +221,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/contact"
+                to="contact"
                 className={({ isActive }) =>
                   `block py-2 px-3 md:p-0 ${
                     isActive
@@ -259,7 +230,7 @@ const Navbar = () => {
                   }`
                 }
               >
-                {translations[language].contact}
+                {t('contact')}
               </NavLink>
             </li>
             <li
@@ -278,7 +249,7 @@ const Navbar = () => {
             >
               {(() => {
                 const isDropdownActive =
-                  location.pathname === '/company-profile' || location.pathname === '/career';
+                  location.pathname.endsWith('/company-profile') || location.pathname.endsWith('/career');
                 return (
                   <button
                     onClick={() => setOpenDropdown(openDropdown === 'about' ? '' : 'about')}
@@ -288,7 +259,7 @@ const Navbar = () => {
                         : 'text-gray-900 hover:text-blue-700 dark:text-white'
                     }`}
                   >
-                    {translations[language].about}
+                    {t('about')}
                     <svg
                       className={`w-4 h-4 ml-1 mt-0.5 transform transition-transform ${
                         openDropdown === 'about' ? 'rotate-180' : ''
@@ -308,7 +279,7 @@ const Navbar = () => {
                 <ul className="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg z-[9999]">
                   <li>
                     <NavLink
-                      to="/company-profile"
+                      to="company-profile"
                       className={({ isActive }) =>
                         `block px-4 py-2 text-sm ${
                           isActive
@@ -317,12 +288,12 @@ const Navbar = () => {
                         }`
                       }
                     >
-                      {translations[language].companyProfile}
+                      {t('companyProfile')}
                     </NavLink>
                   </li>
                   <li>
                     <NavLink
-                      to="/career"
+                      to="career"
                       className={({ isActive }) =>
                         `block px-4 py-2 text-sm ${
                           isActive
@@ -331,7 +302,7 @@ const Navbar = () => {
                         }`
                       }
                     >
-                      {translations[language].career}
+                      {t('career')}
                     </NavLink>
                   </li>
                 </ul>

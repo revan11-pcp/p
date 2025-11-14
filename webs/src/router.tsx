@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Home from "./features/Home";
 import Services from "./features/Services";
 import Contact from "./features/Contact";
@@ -12,38 +12,42 @@ import App from "./App";
 export const router = createBrowserRouter([
   {
     path: "/",
+    element: <Navigate to="/en" replace />,
+  },
+  {
+    path: "/:lang",
     element: <App />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <Home />,
       },
       {
-        path: "/services",
+        path: "services",
         element: <Services />,
       },
       {
-        path: "/contact",
+        path: "contact",
         element: <Contact />,
       },
       {
-        path: "/trace-and-track",
+        path: "trace-and-track",
         element: <TraceAndTrack />,
       },
       {
-        path: "/pricing",
+        path: "pricing",
         element: <RateCalculator />,
       },
       {
-        path: "/coverage",
+        path: "coverage",
         element: <DeliveryCoverage />,
       },
       {
-        path: "/company-profile",
+        path: "company-profile",
         element: <Profile />,
       },
       {
-        path: "/career",
+        path: "career",
         element: <Career />,
       },
     ],

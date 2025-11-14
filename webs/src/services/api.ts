@@ -1,4 +1,4 @@
-import type{ TrackingResponse, TrackingItem } from '../types';
+import type{ TrackingResponse, TrackingItem } from '../shared/types';
 
 const API_BASE_URL = '/api/api.web.pcp/apidata/TrackingWebV2'; 
 
