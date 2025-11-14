@@ -1,51 +1,46 @@
-import React from 'react'
-import img from '../../../assets/cs.png'
-
+import img1 from '../../../assets/truck.jpg'
+import img2 from '../../../assets/pelabuhan.jpeg'
 
 const ServicesSection = () => {
-        const blogs = [
+  const images = [
     {
-      title: 'Noteworthy technology acquisitions 2021',
-      desc: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
-      img,
-      link: '#',
+      title: 'FTL',
+      desc: 'Throughout the country is our mission in providing cargo services with the best facilities and services.',
+      img:img1
     },
     {
-      title: 'Another Blog Post',
-      desc: 'This is a placeholder for another interesting blog post. Stay tuned for more updates.',
-      img,
-      link: '#',
+      title: 'NAC',
+      desc: 'Real-time shipment visibility with full monitoring support.',
+      img:img2
     },
   ]
+  console.log(img2)
+
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900 py-16 px-6">
-      <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl  mb-4 text-gray-800 dark:text-white">
-          Our Services
-        </h2>
-        <p className="text-gray-500 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
-          
-        </p>
+      <div className="max-w-6xl mx-auto text-left">
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {blogs.map((item, index) => (
+
+        <div className="grid gap-8 md:grid-cols-2">
+          {images.map((item, index) => (
             <a
               key={index}
-              href={item.link}
-              className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow hover:shadow-lg transition-shadow duration-300"
+              className="relative rounded-2xl overflow-hidden group shadow-lg"
             >
-              <div className="overflow-hidden">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-6 text-left">
-                <h5 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white group-hover:text-blue-600">
+              <img
+                src={item.img}
+                alt={item.title}
+                className="w-full h-[380px] object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+
+              <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 transition-all"></div>
+
+              <div className="absolute bottom-6 left-6 right-6">
+                <h3 className="text-3xl font-bold text-white mb-3 leading-tight">
                   {item.title}
-                </h5>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                </h3>
+                <p className="text-white text-sm opacity-90 leading-relaxed">
                   {item.desc}
                 </p>
               </div>

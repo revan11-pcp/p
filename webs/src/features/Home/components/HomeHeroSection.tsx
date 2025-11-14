@@ -9,7 +9,7 @@ const HomeHeroSection = () => {
     <section className="relative flex items-center justify-center h-screen">
       <CarouselSection />
       <div className="absolute z-10 text-center px-6 w-full max-w-4xl">
-        <h1 className="text-4xl md:text-3xl  text-white drop-shadow-lg">
+        <h1 className="text-4xl md:text-3xl text-white drop-shadow-lg">
           {t('Track Your Shipment')}
         </h1>
         <p></p>

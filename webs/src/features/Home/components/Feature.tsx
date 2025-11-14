@@ -26,7 +26,7 @@ const features = [
 
 const Feature = () => {
   return (
-    <section className="bg-gray-200 dark:bg-gray-800 py-16"> 
+    <section className="bg-gray-300 dark:bg-gray-800 py-16"> 
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12"> 
           PCP Transport’s Key Features

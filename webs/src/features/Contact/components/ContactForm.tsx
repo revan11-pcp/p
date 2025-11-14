@@ -2,15 +2,15 @@ import { Button, Label, TextInput, Textarea, Select } from "flowbite-react";
 
 const ContactForm = () => {
   return (
-    <section className="bg-white py-12 px-4 md:px-8">
+    <section className="bg-gray-100 dark:bg-gray-800 py-12 px-4 md:px-8">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-white">
           Hubungi Kami
         </h2>
 
         <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <Label htmlFor="name">Nama Lengkap *</Label>
+            <Label htmlFor="name" className="text-gray-700 dark:text-gray-300">Nama Lengkap *</Label>
             <TextInput
               id="name"
               type="text"
@@ -20,7 +20,7 @@ const ContactForm = () => {
           </div>
 
           <div>
-            <Label htmlFor="phone">Kontak *</Label>
+            <Label htmlFor="phone" className="text-gray-700 dark:text-gray-300">Kontak *</Label>
             <TextInput
               id="phone"
               type="text"
@@ -30,7 +30,7 @@ const ContactForm = () => {
           </div>
 
           <div>
-            <Label htmlFor="email">Email *</Label>
+            <Label htmlFor="email" className="text-gray-700 dark:text-gray-300">Email *</Label>
             <TextInput
               id="email"
               type="email"
@@ -40,7 +40,7 @@ const ContactForm = () => {
           </div>
 
           <div>
-            <Label htmlFor="need">Pilih Kebutuhan Anda *</Label>
+            <Label htmlFor="need" className="text-gray-700 dark:text-gray-300">Pilih Kebutuhan Anda *</Label>
             <Select id="need" required>
               <option value="">Pilih kebutuhan Anda</option>
               <option>Pengiriman Barang</option>
@@ -50,7 +50,7 @@ const ContactForm = () => {
           </div>
 
           <div className="md:col-span-2">
-            <Label htmlFor="message">Pesan *</Label>
+            <Label htmlFor="message" className="text-gray-700 dark:text-gray-300">Pesan *</Label>
             <Textarea
               id="message"
               placeholder="Message for me *"
@@ -62,14 +62,14 @@ const ContactForm = () => {
           <div className="md:col-span-2 flex justify-start">
             <Button
               type="submit"
-              className="bg-black text-white px-6"
+              className="bg-black text-white dark:bg-white dark:text-black px-6"
             >
               KIRIM PESAN
             </Button>
           </div>
         </form>
 
-        <div className="mt-10 text-sm text-gray-600 leading-relaxed">
+        <div className="mt-10 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
           <p>
             <strong>PT. YAPINDO TRANSPORTAMA</strong> Jl. Pulo Gadung no. 26
             Kawasan Industri JIEP Jakarta Timur 13930 Tel. +62 21 5088 8585,
@@ -79,7 +79,7 @@ const ContactForm = () => {
             Email:{" "}
             <a
               href="mailto:marketing@pcpexpress.com"
-              className="text-black hover:underline"
+              className="text-black dark:text-white hover:underline"
             >
               marketing@pcpexpress.com
             </a>
