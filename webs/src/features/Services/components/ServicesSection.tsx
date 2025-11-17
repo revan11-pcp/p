@@ -9,7 +9,7 @@ const ServicesSection = () => {
       img:img1
     },
     {
-      title: 'NAC',
+      title: 'FCL ',
       desc: 'Real-time shipment visibility with full monitoring support.',
       img:img2
     },

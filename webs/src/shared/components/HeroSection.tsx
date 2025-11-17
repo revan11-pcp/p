@@ -19,7 +19,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="absolute inset-0 bg-black/50"></div>
 
       <div className="relative z-10 text-center px-6">
-        <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg">
+        <h1 className="text-4xl md:text-6xl text-white drop-shadow-lg">
           {title}
         </h1>
       </div>
