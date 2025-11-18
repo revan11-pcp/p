@@ -36,7 +36,6 @@ export const getTrackingData = async (awbNo: string): Promise<TrackingItem> => {
 
   const data = await apiPost<TrackingResponse>('/local-api/api/tracking/web', { awb_no: awbNoWithComma });
 
-  console.log('Tracking API Response:', data);
   if (!data.status) {
     throw new Error('Tracking number not found');
   }
