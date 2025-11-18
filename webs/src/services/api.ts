@@ -1,4 +1,30 @@
-import type { TrackingResponse, TrackingItem } from '../shared/types';
+import type { TrackingResponse, TrackingItem} from '../shared/types';
+
+/**
+ * A reusable helper function for making POST requests to the API.
+ * It handles common headers, body serialization, and error handling.
+ * @param path The API endpoint path.
+ * @param body The request body to be serialized as JSON.
+ * @returns A promise that resolves to the parsed JSON response.
+ */
+const apiPost = async <T>(path: string, body: unknown): Promise<T> => {
+  const response = await fetch(path, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Token': 'YWRtaW4=',
+    },
+    body: JSON.stringify(body),
+  });
+
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error(data?.message || `Request failed with status ${response.status}`);
+  }
+
+  return data as T;
+};
 
 /**
  * Fetches tracking data from the API.
@@ -8,37 +34,23 @@ import type { TrackingResponse, TrackingItem } from '../shared/types';
 export const getTrackingData = async (awbNo: string): Promise<TrackingItem> => {
   const awbNoWithComma = awbNo.trim().endsWith(',') ? awbNo.trim() : `${awbNo.trim()},`;
 
-  const response = await fetch('/local-api/api/tracking/web', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Token': 'YWRtaW4=',
-    },
-    body: JSON.stringify({ awb_no: awbNoWithComma }),
-  });
+  const data = await apiPost<TrackingResponse>('/local-api/api/tracking/web', { awb_no: awbNoWithComma });
 
-  if (!response.ok) {
-    let errorMessage = `Failed to fetch tracking data. Status: ${response.status}`;
-    try {
-      const errorBody = await response.json();
-      if (errorBody && errorBody.message) {
-        errorMessage = errorBody.message;
-      }
-    } catch (_e) {
-      errorMessage = `Failed to fetch tracking data: ${response.statusText}`;
-    }
-    throw new Error(errorMessage);
-  }
-
-  const data: TrackingResponse = await response.json();
-
+  console.log('Tracking API Response:', data);
   if (!data.status) {
-    throw new Error('API reported an error or tracking data not found. Check "Full API Response" log above.');
-  }
-
-  if (!data.list || data.list.length === 0) {
-    throw new Error('No tracking data found for this AWB number.');
+    throw new Error('Tracking number not found');
   }
 
   return data.list[0];
 };
+
+
+// export const getOfficeLocations = async (): Promise<OfficeLocation[]> => {
+//   const data = await apiPost<OfficeLocationResponse>('/local-api/api/locations/office', {});
+
+//   if (!data.status || !data.data) {
+//     throw new Error('API reported an error or location data is missing.');
+//   }
+
+//   return data.data;
+// };
