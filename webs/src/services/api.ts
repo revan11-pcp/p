@@ -1,6 +1,4 @@
-import type{ TrackingResponse, TrackingItem } from '../shared/types';
-
-const API_BASE_URL = '/api/api.web.pcp/apidata/TrackingWebV2'; 
+import type { TrackingResponse, TrackingItem } from '../shared/types';
 
 /**
  * Fetches tracking data from the API.
@@ -8,18 +6,26 @@ const API_BASE_URL = '/api/api.web.pcp/apidata/TrackingWebV2';
  * @returns A promise that resolves to the tracking item (header + detail).
  */
 export const getTrackingData = async (awbNo: string): Promise<TrackingItem> => {
-  const response = await fetch(`${API_BASE_URL}?AwbNo=${awbNo}`); 
+  const awbNoWithComma = awbNo.trim().endsWith(',') ? awbNo.trim() : `${awbNo.trim()},`;
+
+  const response = await fetch('/local-api/api/tracking/web', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Token': 'YWRtaW4=',
+    },
+    body: JSON.stringify({ awb_no: awbNoWithComma }),
+  });
+
   if (!response.ok) {
-    let errorMessage = 'Failed to fetch tracking data.';
+    let errorMessage = `Failed to fetch tracking data. Status: ${response.status}`;
     try {
       const errorBody = await response.json();
       if (errorBody && errorBody.message) {
         errorMessage = errorBody.message;
-      } else if (errorBody && typeof errorBody === 'string') {
-        errorMessage = errorBody;
       }
     } catch (_e) {
-      errorMessage = 'Under Development   ';
+      errorMessage = `Failed to fetch tracking data: ${response.statusText}`;
     }
     throw new Error(errorMessage);
   }
@@ -27,7 +33,7 @@ export const getTrackingData = async (awbNo: string): Promise<TrackingItem> => {
   const data: TrackingResponse = await response.json();
 
   if (!data.status) {
-    throw new Error('API reported an error or tracking data not found.');
+    throw new Error('API reported an error or tracking data not found. Check "Full API Response" log above.');
   }
 
   if (!data.list || data.list.length === 0) {
@@ -36,4 +42,3 @@ export const getTrackingData = async (awbNo: string): Promise<TrackingItem> => {
 
   return data.list[0];
 };
-

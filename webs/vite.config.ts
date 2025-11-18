@@ -10,6 +10,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
+      '/local-api': {
+        target: 'http://10.3.3.202:8087',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/local-api/, ''),
+      },
     },
   },
 })
