@@ -19,7 +19,8 @@ const Tracing: React.FC<TracingProps> = ({ redirectOnSearch = false, initialTrac
     setLoading(true);
     setData(null);
     try {
-      const result = await getTrackingData(id);
+      const awbNoWithComma = id.trim().endsWith(',') ? id.trim() : `${id.trim()},`;
+      const result = await getTrackingData(awbNoWithComma);
       setData(result);
       if (!result || !result.header) {
         toast.error('Tracking number not found.');

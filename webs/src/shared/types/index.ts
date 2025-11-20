@@ -28,9 +28,7 @@ export interface DetailItem {
   ReceiverName: string;
   ReceiverStatus: string;
   RelatioanName: string | null;
-  StatusId: number;
-  SubStatusId: number | null;
+  StatusId: string;
   StatusName: string;
-  Delivery_type?: string;
   CourierName: string;
 }

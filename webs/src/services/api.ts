@@ -35,21 +35,9 @@ export const getTrackingData = async (awbNo: string): Promise<TrackingItem> => {
   const awbNoWithComma = awbNo.trim().endsWith(',') ? awbNo.trim() : `${awbNo.trim()},`;
 
   const data = await apiPost<TrackingResponse>('/local-api/api/tracking/web', { awb_no: awbNoWithComma });
-
   if (!data.status) {
     throw new Error('Tracking number not found');
   }
 
   return data.list[0];
 };
-
-
-// export const getOfficeLocations = async (): Promise<OfficeLocation[]> => {
-//   const data = await apiPost<OfficeLocationResponse>('/local-api/api/locations/office', {});
-
-//   if (!data.status || !data.data) {
-//     throw new Error('API reported an error or location data is missing.');
-//   }
-
-//   return data.data;
-// };
