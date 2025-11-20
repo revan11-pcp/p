@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getTrackingData } from '../../services/api';
 import type { TrackingItem } from '../types';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface TracingProps {
   redirectOnSearch?: boolean;
@@ -11,18 +11,18 @@ interface TracingProps {
 
 const Tracing: React.FC<TracingProps> = ({ redirectOnSearch = false, initialTrackingId = '' }) => {
   const [trackingId, setTrackingId] = useState(initialTrackingId);
-  const [data, setData] = useState<TrackingItem | null>(null);
+  const [data, setData] = useState<TrackingItem[] | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { lang } = useParams<{ lang: string }>();
 
   const performSearch = async (id: string) => {
     setLoading(true);
     setData(null);
     try {
-      const awbNoWithComma = id.trim().endsWith(',') ? id.trim() : `${id.trim()},`;
-      const result = await getTrackingData(awbNoWithComma);
+      const result = await getTrackingData(id);
       setData(result);
-      if (!result || !result.header) {
+      if (!result || result.length === 0) {
         toast.error('Tracking number not found.');
       }
     } catch (err: any) {
@@ -40,17 +40,21 @@ const Tracing: React.FC<TracingProps> = ({ redirectOnSearch = false, initialTrac
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!trackingId.trim()) {
+    const trimmedTrackingId = trackingId.trim();
+    if (!trimmedTrackingId) {
       toast.error('Please enter a tracking number.');
       return;
     }
 
+    const trackingIds = trimmedTrackingId.split(/[\s,]+/).filter(id => id);
+    const trackingIdQueryParam = trackingIds.join(',');
+
     if (redirectOnSearch) {
-      navigate(`/trace-and-track?trackingId=${trackingId}`);
+      navigate(`/${lang}/trace-and-track?trackingId=${trackingIdQueryParam}`);
       return;
     }
 
-    performSearch(trackingId);
+    performSearch(trackingIdQueryParam);
   };
 
   return (
@@ -92,26 +96,26 @@ const Tracing: React.FC<TracingProps> = ({ redirectOnSearch = false, initialTrac
       </form>
 
       {!redirectOnSearch && (
-        <div className="max-w-4xl mx-auto mt-8 px-4">
+        <div className="max-w-4xl mx-auto mt-8 px-4 space-y-8">
           {loading && <p className="text-center text-gray-500">Loading tracking data...</p>}
-          {data && data.header && (
-            <div className="p-4 border rounded-lg shadow-sm bg-white dark:bg-gray-800 dark:border-gray-700">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white">Tracking Number: {data.header.TrackingNo}</h3>
-              <p className="dark:text-gray-300">Service: <span className="font-semibold text-blue-600 dark:text-blue-400">{data.header.ServiceName}</span></p>
-              <p className="dark:text-gray-300">Shipper: {data.header.ShipperName} ({data.header.ShipperAddress})</p>
-              <p className="dark:text-gray-300">Receiver: {data.header.ReceiverName} ({data.header.ReceiverAddress})</p>
-              {data.detail && data.detail.length > 0 && (
-                <p className="dark:text-gray-300">Current Status: <span className="font-semibold text-green-600 dark:text-green-400">{data.detail[0].StatusName}</span></p>
+          {data && data.map((item, index) => (
+            <div key={index} className="p-4 border rounded-lg shadow-sm bg-white dark:bg-gray-800 dark:border-gray-700">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white">Tracking Number: {item.header.TrackingNo}</h3>
+              <p className="dark:text-gray-300">Service: <span className="font-semibold text-blue-600 dark:text-blue-400">{item.header.ServiceName}</span></p>
+              <p className="dark:text-gray-300">Shipper: {item.header.ShipperName} ({item.header.ShipperAddress})</p>
+              <p className="dark:text-gray-300">Receiver: {item.header.ReceiverName} ({item.header.ReceiverAddress})</p>
+              {item.detail && item.detail.length > 0 && (
+                <p className="dark:text-gray-300">Current Status: <span className="font-semibold text-green-600 dark:text-green-400">{item.detail[0].StatusName}</span></p>
               )}
 
               <div className="mt-6">
                 <h4 className="font-semibold text-gray-800 dark:text-gray-200">Tracking History:</h4>
-                {data.detail && data.detail.length > 0 ? (
+                {item.detail && item.detail.length > 0 ? (
                   <div className="relative mt-4">
                     <div className="absolute left-4 top-0 h-full w-0.5 bg-gray-200 dark:bg-gray-700"></div>
                     <ul className="space-y-8">
-                      {data.detail.map((event, index) => (
-                        <li key={index} className="relative pl-10">
+                      {item.detail.map((event, eventIndex) => (
+                        <li key={eventIndex} className="relative pl-10">
                           <div className="absolute left-4 top-1 w-3 h-3 bg-blue-500 rounded-full -translate-x-1/2"></div>
                           <p className="text-sm text-gray-500 dark:text-gray-400">{new Date(event.TrackingDate).toLocaleString()}</p>
                           <p className="text-gray-800 dark:text-gray-200">
@@ -131,7 +135,7 @@ const Tracing: React.FC<TracingProps> = ({ redirectOnSearch = false, initialTrac
                 )}
               </div>
             </div>
-          )}
+          ))}
         </div>
       )}
     </div>

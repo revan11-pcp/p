@@ -31,7 +31,7 @@ const apiPost = async <T>(path: string, body: unknown): Promise<T> => {
  * @param awbNo The AWB or tracking number.
  * @returns A promise that resolves to the tracking item (header + detail).
  */
-export const getTrackingData = async (awbNo: string): Promise<TrackingItem> => {
+export const getTrackingData = async (awbNo: string): Promise<TrackingItem[]> => {
   const awbNoWithComma = awbNo.trim().endsWith(',') ? awbNo.trim() : `${awbNo.trim()},`;
 
   const data = await apiPost<TrackingResponse>('/local-api/api/tracking/web', { awb_no: awbNoWithComma });
@@ -39,5 +39,5 @@ export const getTrackingData = async (awbNo: string): Promise<TrackingItem> => {
     throw new Error('Tracking number not found');
   }
 
-  return data.list[0];
+  return data.list;
 };
