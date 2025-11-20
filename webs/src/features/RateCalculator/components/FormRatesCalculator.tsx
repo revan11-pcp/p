@@ -80,7 +80,7 @@ const FormRatesCalculator = () => {
         />
       </div>
 
-      <button className="bg-red-600 hover:bg-red-700 text-white w-full py-2 rounded-lg mt-2 font-semibold">
+      <button className="bg-black hover:bg-gray-800 text-white w-full py-2 rounded-lg mt-2 font-semibold">
         Cek Harga Sewa
       </button>
     </div>
