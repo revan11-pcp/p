@@ -1,23 +1,25 @@
-import img from '../../../assets/cs.png'
+import kontenerImg from '../../../assets/kontener.jpeg'
+import pelabuhanImg from '../../../assets/pelabuhan.jpeg'
+import truckImg from '../../../assets/truck.jpg'
 
 const Blog = () => {
   const blogs = [
     {
-      title: 'Noteworthy technology acquisitions 2021',
-      desc: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
-      img,
+      title: 'Solusi Logistik Terpadu untuk Bisnis Anda',
+      desc: 'PCP Transport menyediakan layanan logistik end-to-end yang efisien, aman, dan terintegrasi untuk mendukung pertumbuhan bisnis Anda.',
+      img: kontenerImg,
       link: '#',
     },
     {
-      title: 'Another Blog Post',
-      desc: 'This is a placeholder for another interesting blog post. Stay tuned for more updates.',
-      img,
+      title: 'Jaringan Luas dan Armada Modern untuk Pengiriman Anda',
+      desc: 'Dengan jaringan distribusi yang luas dan armada kendaraan yang terawat, kami siap mengantarkan barang Anda ke seluruh pelosok negeri dengan aman dan cepat.',
+      img: truckImg,
       link: '#',
     },
     {
-      title: 'How PCP Transport Transforms Logistics',
-      desc: 'Discover how innovative tracking and delivery systems help customers send goods faster and more securely.',
-      img,
+      title: 'Keamanan dan Keandalan Pengiriman Internasional',
+      desc: 'Kami memastikan setiap pengiriman internasional memenuhi standar keamanan dan kepatuhan global, memberikan ketenangan pikiran bagi pelanggan kami.',
+      img: pelabuhanImg,
       link: '#',
     },
   ]
