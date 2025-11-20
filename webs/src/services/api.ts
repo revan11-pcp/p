@@ -1,4 +1,5 @@
-import type { TrackingResponse, TrackingItem} from '../shared/types';
+import { API_BASE_URL } from './config';
+import type { TrackingResponse, TrackingItem } from '../shared/types';
 
 /**
  * A reusable helper function for making POST requests to the API.
@@ -8,7 +9,7 @@ import type { TrackingResponse, TrackingItem} from '../shared/types';
  * @returns A promise that resolves to the parsed JSON response.
  */
 const apiPost = async <T>(path: string, body: unknown): Promise<T> => {
-  const response = await fetch(path, {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,7 +18,7 @@ const apiPost = async <T>(path: string, body: unknown): Promise<T> => {
     body: JSON.stringify(body),
   });
 
-  const data = await response.json()
+  const data = await response.json();
 
   if (!response.ok) {
     throw new Error(data?.message || `Request failed with status ${response.status}`);
@@ -34,7 +35,7 @@ const apiPost = async <T>(path: string, body: unknown): Promise<T> => {
 export const getTrackingData = async (awbNo: string): Promise<TrackingItem[]> => {
   const awbNoWithComma = awbNo.trim().endsWith(',') ? awbNo.trim() : `${awbNo.trim()},`;
 
-  const data = await apiPost<TrackingResponse>('/local-api/api/tracking/web', { awb_no: awbNoWithComma });
+  const data = await apiPost<TrackingResponse>('/api/tracking/web', { awb_no: awbNoWithComma });
   if (!data.status) {
     throw new Error('Tracking number not found');
   }
